@@ -47,7 +47,8 @@ module.exports = (timestamp, { dateSuffix = true } = {}) => {
     }
   
     const year = dateObj.getFullYear();
-  
+    
+    // military/24hr time conversion to 12hr time
     let hour;
     if (dateObj.getHours() > 12) {
       hour = Math.floor(dateObj.getHours() / 2);
@@ -55,12 +56,14 @@ module.exports = (timestamp, { dateSuffix = true } = {}) => {
       hour = dateObj.getHours();
     }
   
+    // convert the 0th hour to 12 am
     if (hour === 0) {
       hour = 12;
     }
   
     const minutes = dateObj.getMinutes();
-  
+    
+    // set `am` or `pm` accordingly
     let periodOfDay;
     if (dateObj.getHours() >= 12) {
       periodOfDay = "pm";
@@ -68,6 +71,7 @@ module.exports = (timestamp, { dateSuffix = true } = {}) => {
       periodOfDay = "am";
     }
   
+    // create the formatted date string
     const formattedTimeStamp = `${formattedMonth} ${dayOfMonth}, ${year} at ${hour}:${minutes} ${periodOfDay}`;
   
     return formattedTimeStamp;
